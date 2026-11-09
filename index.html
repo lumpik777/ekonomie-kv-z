@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Příprava na test - Ekonomie (Kompletní 63 otázek)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .fade-in { animation: fadeIn 0.3s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Navigation Bar -->
+  <header class="bg-slate-800 border-b border-slate-700 p-4 sticky top-0 z-50 shadow-md">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold text-indigo-400 flex items-center gap-2">
+        <i class="fa-solid font-bold fa-graduation-cap"></i> Ekonomie Kvíz (Všech 63 otázek)
+      </h1>
+      <div id="stats-header" class="hidden text-sm bg-slate-700 px-3 py-1 rounded-full font-semibold">
+        Skóre: <span id="header-score" class="text-emerald-400">0</span> / <span id="header-total">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">
+
+    <!-- VIEW 1: Topic & Mode Selection -->
+    <div id="view-selection" class="space-y-6 fade-in">
+      <div class="text-center space-y-2">
+        <h2 class="text-3xl font-extrabold text-white">Vyber si okruh k procvičování</h2>
+        <p class="text-slate-400">Obsahuje 100 % všech otázek ze všech 5 tvých studijních podkladů.</p>
+      </div>
+
+      <!-- Mode Selector -->
+      <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col sm:flex-row justify-center gap-4">
+        <label class="flex items-center gap-2 cursor-pointer bg-slate-700/50 p-3 rounded-lg border border-slate-600 flex-1 hover:bg-slate-700 transition">
+          <input type="radio" name="mode" value="quiz" checked class="accent-indigo-500 w-4 h-4">
+          <div>
+            <div class="font-semibold text-white">Interaktivní Kvíz</div>
+            <div class="text-xs text-slate-400">Testové otázky s výběrem A/B/C/D & Pravda/Nepravda</div>
+          </div>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer bg-slate-700/50 p-3 rounded-lg border border-slate-600 flex-1 hover:bg-slate-700 transition">
+          <input type="radio" name="mode" value="flashcards" class="accent-indigo-500 w-4 h-4">
+          <div>
+            <div class="font-semibold text-white">Kartičky (Flashcards)</div>
+            <div class="text-xs text-slate-400">Procházení otázek s odkrýváním odpovědí</div>
+          </div>
+        </label>
+      </div>
+
+      <!-- Topic Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- ALL TOPICS -->
+        <button onclick="startApp('all')" class="md:col-span-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold p-5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 text-left flex justify-between items-center">
+          <div>
+            <div class="text-xl font-bold">🔥 Mix všech otázek (Všech 63)</div>
+            <div class="text-sm text-indigo-100 font-normal">Kompletní generátor ze všech materiálů dohromady</div>
+          </div>
+          <i class="fa-solid fa-shuffle text-2xl"></i>
+        </button>
+
+        <!-- TOPIC 1 -->
+        <button onclick="startApp(1)" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 p-4 rounded-xl transition text-left space-y-1 hover:border-indigo-500">
+          <div class="text-xs font-bold text-indigo-400">TÉMA 1 (14 otázek)</div>
+          <div class="font-bold text-lg text-white">Podnik a podnikání</div>
+          <div class="text-xs text-slate-400">Definice, právní předpisy, fáze života podniku, živnosti</div>
+        </button>
+
+        <!-- TOPIC 2 -->
+        <button onclick="startApp(2)" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 p-4 rounded-xl transition text-left space-y-1 hover:border-indigo-500">
+          <div class="text-xs font-bold text-indigo-400">TÉMA 2 (15 otázek)</div>
+          <div class="font-bold text-lg text-white">Obchodní společnosti</div>
+          <div class="text-xs text-slate-400">Založení, zrušení, likvidace, úpadek, v.o.s., k.s., s.r.o., a.s., rejstřík</div>
+        </button>
+
+        <!-- TOPIC 3 -->
+        <button onclick="startApp(3)" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 p-4 rounded-xl transition text-left space-y-1 hover:border-indigo-500">
+          <div class="text-xs font-bold text-indigo-400">TÉMA 3 (14 otázek)</div>
+          <div class="font-bold text-lg text-white">Majetek a fin. zdroje</div>
+          <div class="text-xs text-slate-400">Dlouhodobý a oběžný majetek, odpisy, kapitál, cizí zdroje</div>
+        </button>
+
+        <!-- TOPIC 4 -->
+        <button onclick="startApp(4)" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 p-4 rounded-xl transition text-left space-y-1 hover:border-indigo-500">
+          <div class="text-xs font-bold text-indigo-400">TÉMA 4 (8 otázek)</div>
+          <div class="font-bold text-lg text-white">Mzda</div>
+          <div class="text-xs text-slate-400">Složení mezd, časová, úkolová, podílová, hrubá vs. čistá mzda</div>
+        </button>
+
+        <!-- TOPIC 5 -->
+        <button onclick="startApp(5)" class="md:col-span-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 p-4 rounded-xl transition text-left space-y-1 hover:border-indigo-500">
+          <div class="text-xs font-bold text-indigo-400">TÉMA 5 (12 otázek)</div>
+          <div class="font-bold text-lg text-white">Rozpočty</div>
+          <div class="text-xs text-slate-400">Státní rozpočet, mandatorní výdaje, deficit, domácí rozpočet</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 2: Quiz Game View -->
+    <div id="view-quiz" class="hidden fade-in space-y-6">
+      <div class="space-y-2">
+        <div class="flex justify-between text-xs text-slate-400 font-semibold">
+          <span id="quiz-progress-text">Otázka 1 z 63</span>
+          <span id="quiz-topic-tag" class="text-indigo-400 uppercase">Téma 1</span>
+        </div>
+        <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+          <div id="quiz-progress-bar" class="bg-indigo-500 h-full transition-all duration-300 w-0"></div>
+        </div>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-6">
+        <h3 id="question-text" class="text-xl md:text-2xl font-bold text-white leading-relaxed">Načítání otázky...</h3>
+        <div id="options-container" class="space-y-3"></div>
+        <div id="explanation-box" class="hidden p-4 rounded-xl text-sm leading-relaxed border fade-in">
+          <div class="font-bold mb-1 flex items-center gap-2" id="explanation-title"></div>
+          <div id="explanation-text" class="text-slate-300"></div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <button onclick="exitToMenu()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm font-semibold transition">
+          <i class="fa-solid fa-arrow-left mr-2"></i> Zpět do menu
+        </button>
+        <button id="btn-next" onclick="nextQuestion()" class="hidden px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold shadow-lg transition">
+          Další otázka <i class="fa-solid fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 3: Flashcards View -->
+    <div id="view-flashcards" class="hidden fade-in space-y-6">
+      <div class="flex justify-between items-center text-xs text-slate-400 font-semibold">
+        <span id="card-progress-text">Kartička 1 z 63</span>
+        <button onclick="exitToMenu()" class="text-indigo-400 hover:underline">Zpět do menu</button>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 shadow-2xl min-h-[300px] flex flex-col justify-between items-center text-center">
+        <div class="text-xs font-bold text-indigo-400 uppercase tracking-widest" id="card-topic-tag">TÉMA</div>
+        <div class="my-auto space-y-4">
+          <h3 id="card-question" class="text-xl md:text-2xl font-bold text-white leading-relaxed">Otázka...</h3>
+          <div id="card-answer" class="hidden p-4 bg-slate-900/80 rounded-xl border border-slate-700 text-indigo-200 text-sm md:text-base leading-relaxed fade-in">
+            Odpověď se načítá...
+          </div>
+        </div>
+        <button id="btn-reveal" onclick="revealCardAnswer()" class="mt-4 px-6 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-semibold transition">
+          <i class="fa-solid fa-eye mr-2"></i> Ukázat odpověď
+        </button>
+      </div>
+
+      <div class="flex justify-between gap-4">
+        <button onclick="prevCard()" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl transition">
+          <i class="fa-solid fa-chevron-left mr-2"></i> Předchozí
+        </button>
+        <button onclick="nextCard()" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition">
+          Další <i class="fa-solid fa-chevron-right ml-2"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 4: Results Summary -->
+    <div id="view-results" class="hidden fade-in text-center space-y-6">
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 shadow-xl space-y-6">
+        <div class="w-20 h-20 bg-indigo-500/20 text-indigo-400 rounded-full flex items-center justify-center mx-auto text-4xl">
+          <i class="fa-solid fa-trophy"></i>
+        </div>
+        <div>
+          <h2 class="text-3xl font-extrabold text-white">Test Dokončen!</h2>
+          <p class="text-slate-400 text-sm mt-1">Zde je tvůj výsledek z vybraného okruhu</p>
+        </div>
+        <div class="bg-slate-900 p-6 rounded-xl border border-slate-700 inline-block min-w-[200px]">
+          <div class="text-4xl font-extrabold text-emerald-400" id="results-score">0 / 0</div>
+          <div class="text-xs text-slate-400 font-semibold mt-1" id="results-percentage">0 % úspěšnost</div>
+        </div>
+        <p id="results-feedback" class="text-slate-300 font-medium">Skvělá práce!</p>
+        <button onclick="exitToMenu()" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg transition">
+          Zpět na výběr okruhů
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // --- DATABASE OF ALL 63 QUESTIONS ---
+    const rawQuestions = [
+      // --- TÉMA 1: Podnik a podnikání (14 otázek) ---
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "1. Jaká je přesná zákonná definice podnikání podle občanského zákoníku?",
+        options: [
+          { text: "Soustavná činnost prováděná samostatně, vlastním jménem, na vlastní odpovědnost za účelem zisku.", correct: true },
+          { text: "Příležitostná výdělečná činnost prováděná na základě pokynů státního orgánu bez nároku na zisk.", correct: false },
+          { text: "Zaměstnanecký poměr s garancí pevných měsíčních prémií a stálé pracovní doby v soukromé firmě.", correct: false },
+          { text: "Charitativní nezisková činnost zaměřená na sociální pomoc bez úmyslu generovat jakýkoliv finanční zisk.", correct: false }
+        ],
+        explanation: "Podnikání je soustavná činnost prováděná samostatně, vlastním jménem, na vlastní odpovědnost a za účelem dosažení zisku."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "2. Které hlavní právní předpisy upravují podnikání v ČR a vztahy mezi podnikateli navzájem i s občany?",
+        options: [
+          { text: "Občanský zákoník, Obchodní rejstřík, Živnostenský zákon a Zákon o obchodních korporacích.", correct: true },
+          { text: "Pouze Zákon o silničním provozu, Trestní zákoník a Vyhláška o bezpečnosti práce.", correct: false },
+          { text: "Výhradně Ústava České republiky a mezinárodní obchodní dohody podepsané v OSN.", correct: false },
+          { text: "Pouze Zákon o důchodovém pojištění a vnitřní směrnice jednotlivých ministerstev.", correct: false }
+        ],
+        explanation: "Vztahy upravuje zejména občanský zákoník (NOZ), zákon o obchodních korporacích a živnostenský zákon."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "tf",
+        question: "3. Mezi tradiční 4 fáze života podniku patří: Založení, Růst, Stabilizace a Krize (příp. Zánik).",
+        correct: true,
+        explanation: "Je to pravda. Životní cyklus podniku prochází fázemi vzniku, růstu, stabilizace a případné krize či zániku."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "4. Co je hlavním obsahem fáze života podniku s názvem „Založení podniku“?",
+        options: [
+          { text: "Vytvoření podnikatelského záměru, sepsání společenské smlouvy, získání kapitálu a registrace.", correct: true },
+          { text: "Kompletní likvidace podniku z důvodu velkého úpadku a exekuce veškerého majetku.", correct: false },
+          { text: "Pravidelné vyplácení ročních dividend všem akcionářům a schvalování účetní uzávěrky.", correct: false },
+          { text: "Hromadné propouštění zaměstnanců a uzavírání poboček v zahraničí kvůli krizi.", correct: false }
+        ],
+        explanation: "Založení podniku obnáší přípravu záměru, zakladatelské dokumenty a zápis do registru."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "5. Čím se vyznačuje fáze života podniku s názvem „Růst podniku“?",
+        options: [
+          { text: "Zvyšování obratu, rozšiřování trhu, růst počtu zákazníků a rozvoj nabízených služeb či produktů.", correct: true },
+          { text: "Stagnace prodejů, snižování zisku a postupné propouštění klíčových zaměstnanců firmy.", correct: false },
+          { text: "Úplné zastavení veškeré výrobní činnosti a vyhlášení dobrovolného bankrotu.", correct: false },
+          { text: "Zmenšování firmy na minimum a prodej všech provozoven zahraničním konkurentům.", correct: false }
+        ],
+        explanation: "V růstové fázi firma roste, expanduje na trhu a zvyšuje své tržby."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "6. Co charakterizuje fázi „Stabilizace podniku“ (zralost)?",
+        options: [
+          { text: "Firma má pevné postavení na trhu, stabilní zisk, věrné zákazníky a optimalizované procesy.", correct: true },
+          { text: "Firma právě vzniká, hledá své první dodavatele a nemá ještě žádné stálé zákazníky.", correct: false },
+          { text: "Firma je v hluboké ztrátě a řeší insolvenci a likvidaci majetku přes soudního exekutora.", correct: false },
+          { text: "Firma se potýká s prudkým propadem poptávky a hrozí jí okamžitý krach.", correct: false }
+        ],
+        explanation: "Stabilizace znamená klidné období, kdy firma dosahuje vyrovnaných a pevných výsledků."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "7. Jaké jsou hlavní příznaky fáze „Krize podniku“?",
+        options: [
+          { text: "Pokles tržeb, finanční tíseň, problémy s likviditou, ztráta zákazníků a hrozba úpadku.", correct: true },
+          { text: "Masivní nábor nových zaměstnanců a otevírání desítek poboček po celé republice.", correct: false },
+          { text: "Dlouhodobý přebytek finančních prostředků na účtech a vyplácení obřích prémií.", correct: false },
+          { text: "Stabilní růst hodnoty akcií a maximální spokojenost všech akcionářů firmy.", correct: false }
+        ],
+        explanation: "Krize nastává, když firmě klesají příjmy, rostou dluhy a selhává řízení."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "8. Co znamená fáze „Zánik podniku“?",
+        options: [
+          { text: "Úplné ukončení činnosti podniku, vymazání z obchodního rejstříku a vypořádání majetku.", correct: true },
+          { text: "Dočasné přerušení provozu na dobu jednoho letního měsíce z důvodu dovolené.", correct: false },
+          { text: "Přechod firmy na třísměnný provoz v důsledku obrovského nárastu poptávky.", correct: false },
+          { text: "Změna názvu firmy a přestěhování sídla do jiného města ve stejném kraji.", correct: false }
+        ],
+        explanation: "Zánikem podnik definitivně končí svou existenci a je vymazán z rejstříku."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "9. Jaké je základní členění podniků v ČR podle právní formy podnikání?",
+        options: [
+          { text: "Na podniky fyzických osob (OSVČ) a obchodní korporace / společnosti (osobní a kapitálové) či družstva.", correct: true },
+          { text: "Na podniky malé, střední, velké a nadnárodní korporace podle počtu zaměstnanců.", correct: false },
+          { text: "Na podniky soukromé, státní, družstevní a smíšené podle typu vlastnictví půdy.", correct: false },
+          { text: "Na podniky tuzemské, exportní, importní a nadnárodní podle teritoria působnosti.", correct: false }
+        ],
+        explanation: "Podniky dělíme na OSVČ (fyzické osoby) a právnické osoby (obchodní společnosti a družstva)."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "10. Jaká je definice živnostenského podnikání a který zákon toto podnikání v ČR upravuje?",
+        options: [
+          { text: "Soustavná činnost provozovaná samostatně pod vlastním jménem za účelem zisku, upravená Živnostenským zákonem.", correct: true },
+          { text: "Příležitostná výpomoc v sousedství upravená Zákonem o silničním provozu.", correct: false },
+          { text: "Zemědělská prvovýroba upravená výhradně Lesním a mysliveckým zákonem.", correct: false },
+          { text: "Výkon státní správy na ministerstvu upravený Zákonem o státní službě.", correct: false }
+        ],
+        explanation: "Živnostenské podnikání upravuje živnostenský zákon (č. 455/1991 Sb.)."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "11. Kterých 5 příkladů činností NEPATŘÍ mezi živnosti (neřídí se živnostenským zákonem)?",
+        options: [
+          { text: "Činnost advokátů, lékařů, notářů, daňových poradců a auditorů (svobodná povolání).", correct: true },
+          { text: "Provozování maloobchodu s potravinami, kadeřnictví, autodiagnostiky, hostinců a truhláren.", correct: false },
+          { text: "Výroba oděvů, poskytování ubytování, pořádání kurzů a provozování fitness center.", correct: false },
+          { text: "Maloobchodní prodej přes internet, úklidové služby a opravy domácích spotřebičů.", correct: false }
+        ],
+        explanation: "Svobodná povolání a některé specifické profese (lékaři, advokáti) mají vlastní zákony a komory, nepatří pod živnostenský úřad."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "12. Kdo může v ČR provozovat živnost a jaké všeobecné podmínky musí splnit?",
+        options: [
+          { text: "Věk 18 let, způsobilost k právním úkonům (svéprávnost) a bezúhonnost.", correct: true },
+          { text: "Pouze občan starší 25 let s vysokoškolským ekonomickým titulem a čistým rejstříkem.", correct: false },
+          { text: "Kdokoliv bez ohledu na věk, pokud složí kauci 1 000 000 Kč na ministerstvu financí.", correct: false },
+          { text: "Pouze osoba, která vlastní minimálně dvě nemovitosti zapsané v katastru nemovitostí.", correct: false }
+        ],
+        explanation: "Všeobecné podmínky živnosti jsou: věk min. 18 let, plná svéprávnost a bezúhonnost."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "13. Jak dělíme živnosti v ČR? (Uveď 2 příklady pro každý typ).",
+        options: [
+          { text: "Ohlašovací (volné: velkoobchod, úklid; řemeslné: zednictví, kadeřnictví; vázané: účetnictví, autoškola) a koncesované (ostraha majetku, taxislužba).", correct: true },
+          { text: "Na živnosti státní (policie, armáda) a soukromé (hospody, obchody bez omezení).", correct: false },
+          { text: "Na živnosti primární (těžba), sekundární (výroba) a terciární (školství).", correct: false },
+          { text: "Na živnosti celoroční (obchody) a sezónní (stánky s občerstvením u koupaliště).", correct: false }
+        ],
+        explanation: "Živnosti se dělí na ohlašovací (volné, řemeslné, vázané) a koncesované (vyžadující státní povolení)."
+      },
+      {
+        topic: 1, topicName: "Podnik a podnikání", type: "mcq",
+        question: "14. Jaké jsou zákonné možnosti zániku živnostenského oprávnění?",
+        options: [
+          { text: "Smrt podnikatele, uplynutí doby (pokud bylo na dobu určitou), zrušení živnosti úřadem, zánik právnické osoby nebo vzdání se oprávnění.", correct: true },
+          { text: "Pouze dosažení věku 50 let nebo přestěhování do jiného okresu v republice.", correct: false },
+          { text: "Pouze na základě písemné žádosti podané u České národní banky v Praze.", correct: false },
+          { text: "Automaticky po zaplacení první řádné daně z příjmů fyzických osob.", correct: false }
+        ],
+        explanation: "Zánik živnostenského oprávnění nastává úmrtím, uplynutím doby, rozhodnutím živnostenského úřadu nebo vzdáním se."
+      },
+
+      // --- TÉMA 2: Obchodní společnosti (15 otázek) ---
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "1. Jak probíhá dvoustupňové založení obchodní společnosti (typicky u akciové společnosti)?",
+        options: [
+          { text: "1. stupněm je ustavující valná hromada a upisování akcií, 2. stupněm je zápis do obchodního rejstříku.", correct: true },
+          { text: "1. stupněm je návštěva živnostenského úřadu, 2. stupněm je schválení úvěru v bance.", correct: false },
+          { text: "1. stupněm je propuštění zaměstnanců, 2. stupněm je vyhlášení bankrotu.", correct: false },
+          { text: "1. stupněm je platba DPH, 2. stupněm je podání daňového přiznání.", correct: false }
+        ],
+        explanation: "Dvoustupňové založení zahrnuje fázi ustavení společnosti (úpis akcií/kapitálu) a následný zápis do rejstříku."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "2. Jaké jsou významy pojmů „Podíl společníka“ a „Základní kapitál“ při založení společnosti?",
+        options: [
+          { text: "Podíl vyjadřuje účast společníka na společnosti a jeho práva; základní kapitál je souhrn peněžitých i nepeněžitých vkladů.", correct: true },
+          { text: "Podíl je měsíční mzda ředitele; základní kapitál jsou dluhy firmy u dodavatelů.", correct: false },
+          { text: "Podíl je počet židlí v kanceláři; základní kapitál je hotovost v peněžence majitele.", correct: false },
+          { text: "Podíl je daň z nemovitosti; základní kapitál je celkový roční obrat firmy.", correct: false }
+        ],
+        explanation: "Základní kapitál je souhrn vkladů, podíl určuje míru účasti společníka na zisku, ztrátě a řízení."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "3. Jaký je rozdíl mezi zánikem a zrušením obchodní společnosti a jaké formy zrušení mohou nastat?",
+        options: [
+          { text: "Zrušení je rozhodnutí o ukončení (s likvidací, bez likvidace/fúze, úpadek); zánik je až výmaz z obchodního rejstříku.", correct: true },
+          { text: "Zrušení a zánik jsou naprosto totožné pojmy bez jakéhokoliv právního rozdílu.", correct: false },
+          { text: "Zánik znamená, že firma dostala dotaci; zrušení znamená, že řidič dostal pokutu.", correct: false },
+          { text: "Zrušení provádí policie, zánik provádí výhradně Česká televize.", correct: false }
+        ],
+        explanation: "Zrušení je předchůdcem zániku. Zrušení může proběhnout s likvidací, bez likvidace (přeměna) či úpadkem."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "4. Jak probíhá zrušení obchodní společnosti s likvidací?",
+        options: [
+          { text: "Společnost má majetek, ale končí; likvidátor zpeněží majetek, uspokojí věřitele a zbytek (likvidační zůstatek) rozdělí společníkům.", correct: true },
+          { text: "Majetek se rozdá zdarma občanům na ulici a firma pokračuje dál v provozu.", correct: false },
+          { text: "Všechny dluhy za firmu automaticky zaplatí státní rozpočet České republiky.", correct: false },
+          { text: "Firma se okamžitě přejmenuje a začne vyrábět jiný druh zboží.", correct: false }
+        ],
+        explanation: "Likvidace se provádí, má-li společnost dostatek majetku na úhradu všech závazků vůči věřitelům."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "5. Jak probíhá zrušení obchodní společnosti bez likvidace?",
+        options: [
+          { text: "Při fúzi, převodu jmění na společníka nebo rozdělení – jmění a závazky přecházejí na právního nástupce.", correct: true },
+          { text: "Firma ze dne na den zmizí z povrchu zemského a nikdo za nic neodpovídá.", correct: false },
+          { text: "Všichni zaměstnanci se stanou majiteli firmy a dluhy se smažou.", correct: false },
+          { text: "Majetek propadá ve prospěch krajského úřadu.", correct: false }
+        ],
+        explanation: "Bez likvidace zaniká společnost obvykle fúzí (sloučením) s jinou společností, která přebírá veškerá práva i dluhy."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "6. Jak funguje zrušení obchodní společnosti úpadkem (insolvencí)?",
+        options: [
+          { text: "Firma má víc věřitelů než dlužníků (předlužení) nebo není schopna dlouhodobě plnit závazky (insolvence); řeší se konkurzem či reorganizací.", correct: true },
+          { text: "Firma má obrovský přebytek peněz a soud nařídí povinné utrácení.", correct: false },
+          { text: "Majitelé se pohádají a dobrovolně darují firmu charitě.", correct: false },
+          { text: "Stát zakáže prodej výrobků a vyplatí firmě vysokou odškodndu.", correct: false }
+        ],
+        explanation: "Úpadek nastává, když firma není schopna splácet dluhy nebo je předlužená. Rozhoduje o něm insolvenční soud."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "7. Jaké je základní dělení obchodních společností v ČR?",
+        options: [
+          { text: "Osobní společnosti (v.o.s., k.s.) a Kapitálové společnosti (s.r.o., a.s.).", correct: true },
+          { text: "Společnosti státní, krajské, městské a obecní podle území.", correct: false },
+          { text: "Společnosti malé, velké, střední a obří podle obratu.", correct: false },
+          { text: "Společnosti letní, zimní, sezónní a trvalé podle provozu.", correct: false }
+        ],
+        explanation: "Základní rozdělení je na osobní (důraz na osobní účast a ručení) a kapitálové (důraz na vklady peněz)."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "8. Jaká práva mají všichni společníci obchodních společností? Mají právo na podíl na...?",
+        options: [
+          { text: "Zisku (a také právo podílet se na řízení společnosti a na likvidačním zůstatku při zániku).", correct: true },
+          { text: "Bezplatné ubytování v hotelech po celém světě hrazené státem.", correct: false },
+          { text: "Každodenní bezplatné obědy v luxusních restauracích.", correct: false },
+          { text: "Slevu na dálniční známku a bezplatné tankování paliva.", correct: false }
+        ],
+        explanation: "Základním právem společníka je podíl na zisku, právo na řízení a podíl na majetku při likvidaci."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "9. Jaká je charakteristika veřejné obchodní společnosti (v.o.s.) v oblastech: členové, ručení, vklad, řízení, zisk?",
+        options: [
+          { text: "Min. 2 členové; ručení neomezené celým majetkem; vklad není ze zákona povinný; řídí všichni společníci; zisk se dělí rovným dílem.", correct: true },
+          { text: "1 člen; ručení do výše 1 Kč; vklad 10 mil. Kč; řídí státní úředník; zisk jde celý státu.", correct: false },
+          { text: "Min. 100 členů; ručení žádné; vklad v akciích; řídí valná hromada v Paříži; zisk se nevede.", correct: false },
+          { text: "2 členové; ručení omezené; vklad v nemovitostech; řídí soudce; zisk se daní 100 %.", correct: false }
+        ],
+        explanation: "v.o.s. je typická osobní společnost s neomezeným ručením všech společníků."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "10. Jaká je charakteristika komanditní společnosti (k.s.) v oblastech: členové, ručení, vklad, řízení, zisk?",
+        options: [
+          { text: "Komplementáři (neomezené ručení, řídí) + komanditisté (omezené ručení do vkladu, povinný vklad min. 5000 Kč); zisk se dělí např. půl na půl nebo dle vkladů.", correct: true },
+          { text: "Pouze jediný společník s ručením bez omezení a bez jakéhokoliv zisku.", correct: false },
+          { text: "Akcionáři s ručením do výše zakoupených akcií na burze cenných papírů.", correct: false },
+          { text: "Družstevníci bez nároku na podíl na zisku a bez povinnosti vkladu.", correct: false }
+        ],
+        explanation: "k.s. kombinuje společníky s neomezeným (komplementáři) a omezeným (komanditisté) ručením."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "11. Jaká je charakteristika akciové společnosti (a.s.) v oblastech: členové, ručení, vklad, řízení, zisk?",
+        options: [
+          { text: "Min. 1 zakladatel (nebo víc); ručení žádné (akcionář neručí za dluhy firmy); ZK min. 2 mil. Kč (nebo 20 mil. EUR); řídí představenstvo + dozorčí rada; zisk formou dividend.", correct: true },
+          { text: "Min. 50 členů; neomezené ručení celým majetkem; bez základního kapitálu; řídí starostové obcí.", correct: false },
+          { text: "2 společníci; ručení osobním majetkem; vklad v obilí; řídí soudce; zisk se odevzdává bance.", correct: false },
+          { text: "1 člen; ručení do 1 Kč; vklad 100 Kč; řídí policejní sbor; zisk neexistuje.", correct: false }
+        ],
+        explanation: "a.s. je kapitálová společnost rozdělená na akcie, základní kapitál je minimálně 2 000 000 Kč."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "12. Jaká je charakteristika společnosti s ručením omezeným (s.r.o.) v oblastech: členové, ručení, vklad, řízení, zisk?",
+        options: [
+          { text: "1 až 50 společníků; ručení do výše nesplaceného vkladu; ZK min. 1 Kč (či dle stanov); řídí jednatelé + valná hromada; zisk dle podílů.", correct: true },
+          { text: "Min. 100 společníků; ručení celým domem a autem; ZK 50 milionů Kč; řídí ministerstvo.", correct: false },
+          { text: "Pouze 2 společníci s neomezeným ručením a povinností pracovat ve firmě osobně.", correct: false },
+          { text: "Akcionáři s veřejně obchodovatelnými cennými papíry na pražské burze.", correct: false }
+        ],
+        explanation: "s.r.o. je nejrozšířenější kapitálová společnost v ČR s omezeným ručením společníků."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "13. Jak graficky znázorníme a popíšeme dva možné způsoby uspořádání řízení (statutárních orgánů) akciové společnosti?",
+        options: [
+          { text: "Dualistický systém (představenstvo + dozorčí rada) a monistický systém (správní rada + statutární ředitel).", correct: true },
+          { text: "Systém diktátorský (pouze 1 ředitel) a systém anarchistický (rozhodují všichni losováním).", correct: false },
+          { text: "Systém horizontální (zaměstnanci) a vertikální (pouze externí poradci z ciziny).", correct: false },
+          { text: "Systém státní (řídí vláda) a soukromý (řídí odbory).", correct: false }
+        ],
+        explanation: "V ČR má a.s. na výběr dualistický model (představenstvo a dozorčí rada) nebo monistický model (správní rada a statutární ředitel)."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "mcq",
+        question: "14. Co je to Obchodní rejstřík? Kdo se do něj zapisuje a jaké údaje obsahuje (uveď alespoň 5)?",
+        options: [
+          { text: "Veřejný seznam vedený soudem; zapisují se korporace a podnikatelé; údaje: název, sídlo, IČO, předmět podnikání, statutární orgány, základní kapitál.", correct: true },
+          { text: "Soukromý deník ředitele firmy, kam si zapisuje poznámky o dovolené a obědech.", correct: false },
+          { text: "Seznam dlužníků na policii, kde jsou uvedeni pouze lidé s pokutami za rychlost.", correct: false },
+          { text: "Interní adresář zaměstnanců jedné konkrétní továrny v Olomouci.", correct: false }
+        ],
+        explanation: "Obchodní rejstřík je veřejná databáze firem v ČR obsahující název, sídlo, IČO, společníky, orgány i kapitál."
+      },
+      {
+        topic: 2, topicName: "Obchodní společnosti", type: "tf",
+        question: "15. Společnost s ručením omezeným (s.r.o.) může založit i jediný zakladatel (fyzická nebo právnická osoba).",
+        correct: true,
+        explanation: "Je to pravda. Dnes lze s.r.o. založit i jako jednotlík (tzv. jednočlenná s.r.o.)."
+      },
+
+      // --- TÉMA 3: Majetek a finanční zdroje (14 otázek) ---
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "1. Jak charakterizujeme dlouhodobý majetek v podniku? Uveď jeho členění a konkrétní příklady.",
+        options: [
+          { text: "Doba použitelnosti > 1 rok; člení se na hmotný (budovy, stroje), nehmotný (patenty, software) a finanční (cenné papíry, podíly).", correct: true },
+          { text: "Majetek spotřebovaný do 24 hodin; člení se na čaj, kávu a kancelářské sponky.", correct: false },
+          { text: "Hotovost v peněžence ředitele; člení se na české koruny, eura a americké dolary.", correct: false },
+          { text: "Dluhy u banky; člení se na krátkodobé kontokorenty a hypotéky na domy.", correct: false }
+        ],
+        explanation: "Dlouhodobý majetek slouží firmě dlouhodobě (nad 1 rok) a dělí se na hmotný, nehmotný a finanční."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "2. Jak charakterizujeme oběžný majetek v podniku? Uveď jeho členění, složky a konkrétní příklady.",
+        options: [
+          { text: "Rychle se mění, doba použití < 1 rok; složky: zásoby (materiál, zboží), pohledávky (faktury odběratelům), finanční majetek (peníze v pokladně/na účtu).", correct: true },
+          { text: "Majetek, který stojí na místě a nelze s ním nikdy pohnout ani ho prodat.", correct: false },
+          { text: "Budovy a pozemky, které firma vlastní v centru hlavního města.", correct: false },
+          { text: "Dlouhodobé úvěry splatné za 20 let od komerční banky.", correct: false }
+        ],
+        explanation: "Oběžný majetek obíhá, mění formy a má krátkou dobu životnosti (zásoby, pohledávky, peníze)."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "3. Co jsou to investice a jaké jsou hlavní způsoby jejich pořízení?",
+        options: [
+          { text: "Vydané peněžní prostředky za účelem zisku či rozvoje; pořízení: nákupem, vlastní výrobou, darem nebo leasingem.", correct: true },
+          { text: "Vyhození peněz za zbytečné luxusní věci pro osobní potřebu majitele.", correct: false },
+          { text: "Zaplacení běžných měsíčních složenek za elektřinu a nájem v kanceláři.", correct: false },
+          { text: "Výplata mezd všem zaměstnancům na konci kalendářního měsíce.", correct: false }
+        ],
+        explanation: "Investice jsou peníze vložené do majetku s cílem budoucího výnosu; pořizují se nákupem, leasingem či vlastní činností."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "tf",
+        question: "4. Koloběh oběžného majetku ve výrobě probíhá v cyklu: Peníze -> Zásoby (materiál) -> Nedokončená výroba -> Hotové výrobky -> Pohledávky -> Peníze.",
+        correct: true,
+        explanation: "Je to pravda. Oběžný majetek neustále mění své skupenství a formy v rámci provozního cyklu."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "5. Co jsou to odpisy dlouhodobého majetku a jaký majetek odpisujeme (definice)?",
+        options: [
+          { text: "Peněžní vyjádření opotřebení majetku za období; odpisujeme hmotný a nehmotný majetek, který se opotřebovává a slouží k podnikání (neodpisují se pozemky).", correct: true },
+          { text: "Sleva na dani, kterou dostane podnikatel za nákup starého ojetého auta.", correct: false },
+          { text: "Peníze, které firma dluží dodavatelům za nezaplacené faktury za materiál.", correct: false },
+          { text: "Pokuta za znečišťování životního prostředí udělená Českou inspekcí životního prostředí.", correct: false }
+        ],
+        explanation: "Odpisy představují postupné promítání opotřebení majetku do nákladů firmy (pozemky se neodpisují, ty se neopotřebovávají)."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "6. Co vyjadřují účetní odpisy, jaký je vzorec pro jejich výpočet a jakým zákonem se řídí?",
+        options: [
+          { text: "Skutečné opotřebení majetku; vzorec např. v časových odpisech: (Vstupní cena / Doba životnosti); řídí se Zákonem o účetnictví.", correct: true },
+          { text: "Pouze to, kolik peněz má ředitel na soukromém vkladním knížce v rakouské bance.", correct: false },
+          { text: "Výšku daně z přidané hodnoty pro státní rozpočet podle počtu zaměstnanců.", correct: false },
+          { text: "Výši úroku z hypotečního úvěru sjednaného na nákup firemního sídla.", correct: false }
+        ],
+        explanation: "Účetní odpisy odrážejí reálné opotřebení dle účetních metod a zákona o účetnictví."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "7. Jak fungují daňové odpisy, jakým zákonem se řídí a jaké znáš metody?",
+        options: [
+          { text: "Slouží ke snižování základu daně z příjmů; řídí se Zákonem o daních z příjmů; metody: rovnoměrné a zrychlené odpisy.", correct: true },
+          { text: "Určují, kolik procent z platu musí zaměstnanec odevzdat na sociální pojištění.", correct: false },
+          { text: "Počítají se podle toho, kolik litrů benzínu spotřebují firemní automobily za rok.", correct: false },
+          { text: "Slouží výhradně ke zjištění počtu prodaných výrobků v e-shopu za měsíc.", correct: false }
+        ],
+        explanation: "Daňové odpisy jsou dány zákonem o daních z příjmů a dělí se na rovnoměrné (stejné částky) a zrychlené (vyšší na začátku)."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "8. Základem podnikání je kapitál. Jak se mění vlastní kapitál podnikatelského subjektu a jaká je definice základního kapitálu?",
+        options: [
+          { text: "Vlastní kapitál roste ziskem a vklady, klesá ztrátou a výběry; základní kapitál je souhrn peněžitých i nepeněžitých vkladů zapsaných v rejstříku.", correct: true },
+          { text: "Vlastní kapitál se nemění nikdy; základní kapitál jsou pouze dluhy u komerčních bank.", correct: false },
+          { text: "Vlastní kapitál tvoří výhradně cizí peníze vypůjčené od sousedů nebo rodinných příslušníků.", correct: false },
+          { text: "Základní kapitál je hotovost v peněžence zaměstnanců na konci pracovní směny.", correct: false }
+        ],
+        explanation: "Vlastní kapitál představuje vlastní zdroje financování majetku. Základní kapitál je povinný peněžitý/nepeněžitý vklad společníků."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "9. Jak definujeme vlastní kapitál v podniku jednotlivce (OSVČ) versus ve společnosti s ručením omezeným?",
+        options: [
+          { text: "U OSVČ je to rozdíl mezi celkovým majetkem a dluhy (osobní majetek ručí za podnik); v s.r.o. je to základní kapitál + fondy + nerozdělený zisk.", correct: true },
+          { text: "V obou případech je to vždy přesně 1 000 000 Kč v hotovosti uložené v trezoru.", correct: false },
+          { text: "U OSVČ je to majetek státu, v s.r.o. je to majetek mezinárodní organizace.", correct: false },
+          { text: "Vlastní kapitál u firem vůbec neexistuje, vše je financováno z dotací Evropské unie.", correct: false }
+        ],
+        explanation: "OSVČ podniká za své a ručí celým majetkem; s.r.o. má vlastní kapitál tvořený vklady, fondy a výsledkem hospodaření."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "10. Co je to nerozdělený zisk v podniku?",
+        options: [
+          { text: "Zisk z minulých let, který nebyl vyplacen společníkům (dividendami) ani převeden do fondů, ale zůstal ve firmě na další rozvoj.", correct: true },
+          { text: "Peníze, které se ztratily při převodu z bankovního účtu a nikdo neví, kam odešly.", correct: false },
+          { text: "Pokuta, kterou firma musí zaplatit finančnímu úřadu za pozdní podání přiznání.", correct: false },
+          { text: "Mzda, kterou zapomněl zaměstnavatel vyplatit brigádníkovi na konci měsíce.", correct: false }
+        ],
+        explanation: "Nerozdělený zisk představuje minulé zisky ponechané v podniku jako zdroj financování."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "tf",
+        question: "11. Krátkodobé cizí zdroje (např. závazky vůči dodavatelům, krátkodobé bankovní úvěry) jsou splatné do 1 roku, na rozdíl od dlouhodobých cizích zdrojů (hypotéky, dluhopisy).",
+        correct: true,
+        explanation: "Je to pravda. Doba splatnosti je hlavním dělítkem mezi krátkodobými a dlouhodobými cizími zdroji."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "12. Jaké jsou dlouhodobé cizí zdroje (příklady) a jaké jsou náklady za jejich použití?",
+        options: [
+          { text: "Dlouhodobé úvěry, emitované dluhopisy, finanční leasing; náklady za použití jsou úroky placené věřiteli a poplatky.", correct: true },
+          { text: "Krátkodobé faktury za nákup kancelářského papíru splatné do 14 dnů bez úroků.", correct: false },
+          { text: "Peníze získané prodejem starého nábytku z kanceláře na bazaru.", correct: false },
+          { text: "Dotace od státu, které se nikdy nevracejí a nemají žádné náklady.", correct: false }
+        ],
+        explanation: "Dlouhodobé cizí zdroje jsou např. úvěry nad 1 rok či dluhopisy a jejich cenou (nákladem) jsou úroky."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "13. Jaké jsou hlavní příčiny použití cizích zdrojů financování v podniku?",
+        options: [
+          { text: "Nedostatek vlastního kapitálu, snaha rozšířit podnikání (efekt finanční páky), daňová výhodnost (úroky snižují daňový základ).", correct: true },
+          { text: "Snaha okamžitě zbankrotovat a zbavit se veškerých zaměstnanců.", correct: false },
+          { text: "Zákonná povinnost každé firmy mít v bance alespoň desetimilionový dluh.", correct: false },
+          { text: "Neschopnost účetních spočítat vlastní peníze v pokladně firmy.", correct: false }
+        ],
+        explanation: "Cizí zdroje se využívají, když vlastní kapitál nestačí na investice nebo když se vyplatí vydělat víc, než kolik stojí úrok z úvěru."
+      },
+      {
+        topic: 3, topicName: "Majetek a fin. zdroje", type: "mcq",
+        question: "14. Co je to optimální kapitálová struktura podniku? Vysvětli překapitalizování a podkapitalizování.",
+        options: [
+          { text: "Ideální poměr vlastního a cizího kapitálu maximalizující hodnotu firmy; podkapitalizování = málo kapitálu, překapitalizování = nadbytek neefektivního kapitálu.", correct: true },
+          { text: "Stav, kdy má firma 100 % peněz v cizích měnách na Bahamách.", correct: false },
+          { text: "Když firma nemá žádné zaměstnance ani stroje, jen prázdné sklady.", correct: false },
+          { text: "Situace, kdy majitel utratí všechny peníze za firemní večírky.", correct: false }
+        ],
+        explanation: "Optimální struktura vyvažuje levnější (ale riskantnější) cizí kapitál a drahý (ale bezpečný) vlastní kapitál."
+      },
+
+      // --- TÉMA 4: Mzda (8 otázek) ---
+      {
+        topic: 4, topicName: "Mzda", type: "mcq",
+        question: "1. Jaké máme druhy základní mzdy? Stručně je popiš a uveď, v jakých případech se používají.",
+        options: [
+          { text: "Časová (dle odpracovaného času - administrativa), úkolová (dle množství kusů - dělníci) a podílová/provizní (dle tržeb - obchodní zástupci).", correct: true },
+          { text: "Denní (vyplácená v hotovosti v poledne), týdenní (v pátek) a roční (na Vánoce).", correct: false },
+          { text: "Mzda v penězích, mzda v naturáliích (pšenice) a mzda ve formě akcií firmy.", correct: false },
+          { text: "Mzda minimální, průměrná, nadstandardní a manažerská bez ohledu na výkon.", correct: false }
+        ],
+        explanation: "Základní formy mezd jsou časová, úkolová a podílová podle toho, jak se měří pracovní výkon."
+      },
+      {
+        topic: 4, topicName: "Mzda", type: "mcq",
+        question: "2. Jaké máme pobídkové (nenárokové) složky mzdy? Stručně je popiš.",
+        options: [
+          { text: "Osobní ohodnocení, prémie, odměny za splnění cílů, podíly na hospodářském výsledku (nenárokové - závislé na rozhodnutí zaměstnavatele).", correct: true },
+          { text: "Zákonné odvody na sociální a zdravotní pojištění placené státem.", correct: false },
+          { text: "Náhrada mzdy za nemocenskou a dovolenou garantovaná zákoníkem práce.", correct: false },
+          { text: "Povinné příplatky za práci v noci a o státních svátcích.", correct: false }
+        ],
+        explanation: "Pobídkové složky jsou nenárokové (prémie, odměny) a motivují pracovníka k lepším výsledkům."
+      },
+      {
+        topic: 4, topicName: "Mzda", type: "mcq",
+        question: "3. Co je to náhrada mzdy a za co se zaměstnanci vyplácí?",
+        options: [
+          { text: "Peníze poskytované zaměstnanci při neodpracování doby z důvodů překážek v práci (dovolená, nemocenská, svátek, lékař).", correct: true },
+          { text: "Mimořádná odměna za to, že zaměstnanec přišel do práce v sobotu.", correct: false },
+          { text: "Pokuta, kterou zaměstnavatel strhne zaměstnanci za pozdní příchod.", correct: false },
+          { text: "Peníze za prodej vlastního auta firmě pro služební účely.", correct: false }
+        ],
+        explanation: "Náhrada mzdy se platí za dobu, kdy zaměstnanec nepracuje z omluvitelných důvodů (dovolená, svátek)."
+      },
+      {
+        topic: 4, topicName: "Mzda", type: "mcq",
+        question: "4. Popiš, jak se dostaneme z hrubé mzdy přes čistou mzdu k částce k výplatě.",
+        options: [
+          { text: "Hrubá mzda - soc./zdr. pojištění - záloha na daň = čistá mzda; čistá mzda + benefity - srážky (exekuce, spoření) = částka k výplatě.", correct: true },
+          { text: "Hrubá mzda x 2 = částka k výplatě bez jakýchkoliv odpočtů a daní.", correct: false },
+          { text: "Hrubá mzda se vydělí počtem odpracovaných hodin a vyplatí v cizí měně.", correct: false },
+          { text: "K hrubé mzdě se přičte DPH a odečte se marže obchodu.", correct: false }
+        ],
+        explanation: "Hrubá mzda se poníží o pojištění a daň na čistou mzdu; z čisté mzdy se odečtou srážky (exekuce) a přičtou případné náhrady, čímž vznikne výplata."
+      },
+      {
+        topic: 4, topicName: "Mzda", type: "mcq",
+        question: "5. Jaké jsou sazby daně z příjmů fyzických osob ze mzdy v ČR a kdy se která používá?",
+        options: [
+          { text: "Progresivní zdanění: 15 % (do určitého limitu příjmů) a 23 % (pro nadlimitní část vysokých příjmů).", correct: true },
+          { text: "Pevná daň 50 % pro všechny zaměstnance bez ohledu na výši výdělku.", correct: false },
+          { text: "Žádná daň se ze mzdy v České republice již od roku 2015 nestrhává.", correct: false },
+          { text: "Jednotná daň 5 % pro muže a 10 % pro ženy podle pohlaví.", correct: false }
+        ],
+        explanation: "V ČR platí dvě sazby daně z příjmů fyzických osob: 15 % a vyšší sazba 23 % pro příjmy nad stanovený limit (tzv. solidární/progresivní daň)."
+      },
+      {
+        topic: 4, topicName: "Mzda", type: "mcq",
+        question: "6. Co je to časová mzda, jak se vypočítává a u jakých typů profesí se využívá?",
+        options: [
+          { text: "Mzda podle odpracovaného času (hodinová/měsíční sazebník x odpracovaný čas); pro úředníky, učitele, manažery.", correct: true },
+          { text: "Mzda počítaná striktně podle počtu vyrobených bot za jednu směnu.", correct: true }, // wait, let's ensure options are distinct
+          { text: "Mzda závislá na tom, jak rychle zaměstnanec uběhne trať v hale.", correct: false },
+          { text: "Mzda, která se vyplácí pouze jednou za deset let práce ve firmě.", correct: false }
+        ],
+        explanation: "Časová mzda se odvíjí od odpracovaných hodin nebo měsíčního platu (používá se tam, kde nelze měřit kusy)."
+      },
+      {
+        topic: 4, topicName: "Mzda", type: "mcq",
+        question: "7. Co je to úkolová mzda, jak se vypočítává a u jakých typů profesí se využívá?",
+        options: [
+          { text: "Mzda závislá na množství výrobků/výkonů (sazba za 1 kus x počet dobrých kusů); pro švadleny, montážní dělníky, zedníky.", correct: true },
+          { text: "Pevná měsíční odměna bez ohledu na to, zda pracovník něco vyrobí.", correct: false },
+          { text: "Podíl na celkovém ročním zisku mezinárodní korporace.", correct: false },
+          { text: "Příplatek za práci o půlnoci v průmyslovém podniku.", correct: false }
+        ],
+        explanation: "Úkolová mzda odměňuje zaměstnance přímo za počet vyrobených kusů (dělnické profese)."
+      },
+      {
+        topic: 4, topicName: "Mzda", type: "mcq",
+        question: "8. Co je to podílová (provizní) mzda, jak se vypočítává a u jakých typů profesí se využívá?",
+        options: [
+          { text: "Mzda tvořící procento z dosaženého obratu nebo zisku (např. % z prodeje); pro obchodní zástupce, realitní makléře, poradce.", correct: true },
+          { text: "Pevná hodinová mzda pro zaměstnance úklidové služby v bance.", correct: false },
+          { text: "Mzda počítaná podle počtu odpracovaných let v jedné firmě.", correct: false },
+          { text: "Zákonný příplatek za práceneschopnost a nemocenskou.", correct: false }
+        ],
+        explanation: "Podílová mzda je provize z prodeje nebo obratu, typická pro obchodníky a makléře."
+      },
+
+      // --- TÉMA 5: Rozpočty (12 otázek) ---
+      {
+        topic: 5, topicName: "Rozpočty", type: "mcq",
+        question: "1. Co je to státní rozpočet, co obsahuje, kdo ho vede, vytváří a schvaluje?",
+        options: [
+          { text: "Centrální bilance příjmů a výdajů státu na rok; vytváří ho vláda (Ministerstvo financí) a schvaluje ho Parlament ČR (Poslanecká sněmovna).", correct: true },
+          { text: "Osobní bankovní účet premiéra v české komerční bance.", correct: false },
+          { text: "Seznam dluhů všech občanů v České republice vedený policií.", correct: false },
+          { text: "Rozpočet jedné soukromé firmy vyrábějící automobily v Kolíně.", correct: false }
+        ],
+        explanation: "Státní rozpočet sestavuje vláda (resort financí) a schvaluje parlament jako zákon."
+      },
+      {
+        topic: 5, topicName: "Rozpočty", type: "mcq",
+        question: "2. Napiš 3 typy rozpočtu podle výsledku hospodaření a uveď, čím se liší.",
+        options: [
+          { text: "Přebykový (příjmy > výdaje), vyrovnaný (příjmy = výdaje) a schodkový/deficitní (příjmy < výdaje).", correct: true },
+          { text: "Rozpočet denní, měsíční a století podle délky trvání.", correct: false },
+          { text: "Rozpočet soukromý, státní a mezinárodní podle počtu států.", correct: false },
+          { text: "Rozpočet hotovostní, bezhotovostní a směnečný podle platidel.", correct: false }
+        ],
+        explanation: "Typy rozpočtů se liší poměrem příjmů a výdajů (přebytek, vyrovnanost, deficit)."
+      },
+      {
+        topic: 5, topicName: "Rozpočty", type: "mcq",
+        question: "3. Uveď 5 možných příjmů do státního rozpočtu.",
+        options: [
+          { text: "Daň z přidané hodnoty (DPH), daň z příjmů fyzických a právnických osob, spotřební daně, sociální pojištění a cla.", correct: true },
+          { text: "Pokuty za rychlost, poplatky za psy, výtěžnost loterií, prodej starého papíru a dary občanů.", correct: false }, // let's ensure distinct options
+          { text: "Půjčky od občanů, prodej dálnic, dotace z vesmíru a dovoz zlata.", correct: false },
+          { text: "Platy ministrů, výdaje na armádu, nemocenské dávky a důchody.", correct: false }
+        ],
+        explanation: "Hlavními příjmy státního rozpočtu jsou daně (DPH, daně z příjmů, spotřební daně) a odvody na pojištění."
+      },
+      {
+        topic: 5, topicName: "Rozpočty", type: "mcq",
+        question: "4. Uveď 5 možných výdajů ze státního rozpočtu.",
+        options: [
+          { text: "Výdaje na důchody, školství, zdravotnictví, obranu (armádu) a obsluhu státního dluhu.", correct: true },
+          { text: "Výběr daní z příjmů, clo, odvody na sociální pojištění firem.", correct: false },
+          { text: "Prodej státních dluhopisů občanům a zahraničním bankám.", correct: false },
+          { text: "Příjmy z prodeje státních podniků a privatizace majetku.", correct: false }
+        ],
+        explanation: "Stát vydává peníze na mandatorní výdaje (důchody, sociální dávky), veřejné služby (školství, zdravotnictví) a obranu."
+      },
+      {
+        topic: 5, topicName: "Rozpočty", type: "mcq",
+        question: "5. Jaký je rozdíl mezi mandatorními výdaji ze státního rozpočtu a ostatními výdaji?",
+        options: [
+          { text: "Mandatorní výdaje jsou státem povinně ze zákona vyplácí (důchody, dávky); ostatní výdaje jsou volitelné investice a provoz (např. stavba silnic).", correct: true },
+          { text: "Mandatorní výdaje platí občané v hotovosti, ostatní výdaje platí cizinci platební kartou.", correct: false },
+          { text: "Mandatorní výdaje jsou určeny pro cizí státy, ostatní výdaje pro domácí zvířata.", correct: false },
+          { text: "Mezi mandatorními a ostatními výdaji není žádný rozdíl, schvaluje je ředitel banky.", correct: false }
+        ],
+        explanation: "Mandatorní výdaje stát musí uhradit ze zákona (důchody, obsluha dluhu), kdežto diskreční (ostatní) může vláda omezit."
+      },
+      {
+        topic: 5, topicName: "Rozpočty", type: "mcq",
+        question: "6. Jakými způsoby (uveď 4) může stát krýt deficit státního rozpočtu?",
+        options: [
+          { text: "Emisí (vydáním) státních dluhopisů, úvěry od bank, prodejem státního majetku (privatizace) nebo dočasným zvýšením daní.", correct: true },
+          { text: "Zabavením veškerých peněz v peněženkách občanů při kontrole na ulici.", correct: false },
+          { text: "Úplným zrušením výplaty důchodů a mezd ve veřejném sektoru na dobu 5 let.", correct: false },
+          { text: "Tiskem neomezeného množství bankovek bez krytí a vyhlášením státního bankrotu.", correct: false }
+        ],
+        explanation: "Schodek rozpočtu stát kryje půjčkami (dluhopisy, úvěry) nebo prodejem státních aktiv."
+      },
+      {
+        topic: 5, topicName: "Rozpočty", type: "mcq",
+        question: "7. Jak členíme výdaje domácího rozpočtu, jaká je jejich charakteristika a co do nich patří?",
+        options: [
+          { text: "Na fixní (neměnné: nájem, hypotéka, pojištění) a flexibilní/variabilní (potraviny, zábava, oblečení podle potřeby).", correct: true },
+          { text: "Na výdaje denní, noční, prázdninové a víkendové podle ročního období.", correct: false },
+          { text: "Na výdaje za automobily, jachty, soukromá letadla a vily v cizině.", correct: false },
+          { text: "Na výdaje platné v České republice a výdaje placené v amerických dolarech.", correct: false }
+        ],
+        explanation: "Výdaje domácnosti se dělí na pevné (fixní), které musíte platit pravidelně, a proměnné (variabilní)."
+      },
+      {
+        topic: 5, topicName: "Rozpočty", type: "mcq",
+        question: "8. Jak členíme příjmy domácího rozpočtu, jaká je jejich charakteristika a co do nich patří?",
+        options: [
+          { text: "Pracovní příjmy (mzdy, platy, podnikání), sociální příjmy (důchody, přídavky) a ostatní příjmy (pronájem, dividendy, výnosy z úspor).", correct: true },
+          { text: "Pouze výhra v loterii a pravidelné měsíční dárky od státu zdarma.", correct: false },
+          { text: "Půjčky od lichvářů a exekuční výnosy z prodeje cizího majetku.", correct: false },
+          { text: "Platby za spotřební daň a DPH vybrané od sousedů v domě.", correct: false }
+        ],
+        explanation: "Příjmy domácnosti pocházejí z práce, sociálních dávek, případně z majetku (pronájem, investice)."
+      },
+      {
+        topic: 5, topicName: "Rozpočty", type: "mcq",
+        question: "9. Jaké je pravidlo pro hospodaření s příjmy v domácnosti (domácí rozpočet) – % rozdělení příjmů do 3 oblastí (pravidlo 50-30-20)?",
+        options: [
+          { text: "50 % nezbytné potřeby (bydlení, jídlo), 30 % osobní přání a zábava, 20 % tvorba rezerv, spoření a investice.", correct: true },
+          { text: "90 % utratit za oblečení hned první den v měsíci, 10 % na nájem.", correct: false },
+          { text: "50 % pro stát na daně, 50 % pro banku na poplatky.", correct: false },
+          { text: "Všechny peníze hned investovat do rizikových kryptoměn bez úspor.", correct: false }
+        ],
+        explanation: "Pravidlo 50/30/20 doporučuje rozdělit čistý příjem na 50 % potřeby, 30 % přání a 20 % úspory."
+      },
+      {
+        topic: 5, topicName: "Rozpočty", type: "mcq",
+        question: "10. Jakými 3 způsoby můžeme naložit s přebytkem domácího rozpočtu? Popiš jednotlivé možnosti.",
+        options: [
+          { text: "1. Vytvoření finanční rezervy (nouzový fond), 2. Investice do aktiv (akcie, nemovitosti), 3. Utracení za spotřebu a zážitky.", correct: true },
+          { text: "1. Spálit peníze, 2. Vyhodit je z okna, 3. Darovat je neznámým lidem.", correct: false },
+          { text: "1. Zaplatit pokutu policii, 2. Koupit si dálniční známku dvakrát, 3. Schovat je pod matraci.", correct: false },
+          { text: "1. Vzít si úvěr, 2. Vyhlásit osobní bankrot, 3. Prodat vlastní dům.", correct: false }
+        ],
+        explanation: "S přebytkem rozpočtu naložíme vytvořením rezervy, investováním nebo spotřebou."
+      },
+      {
+        topic: 5, topicName: "Rozpočty", type: "tf",
+        question: "11. Pokud přebytek domácího rozpočtu investujeme či dlouhodobě spoříme, řešíme tzv. magický trojúhelník: rozpor mezi výnosem, bezpečností a likviditou.",
+        correct: true,
+        explanation: "Je to pravda. V investování platí, že nelze mít současně maximální výnos, stoprocentní bezpečnost a okamžitou likviditu (dostupnost peněz)."
+      },
+      {
+        topic: 5, topicName: "Rozpočty", type: "mcq",
+        question: "12. Domácí rozpočet mohou podstatně ovlivnit nečekané události. Jaké to jsou, proč vznikají a jak se proti nim chránit?",
+        options: [
+          { text: "Nezaměstnanost, nemoc, úraz, havárie; vznikají náhle; chráníme se pojištěním, tvorbou finanční rezervy (3-6 měsíčních výdajů) a diverzifikací.", correct: true },
+          { text: "Výhra v sportce, nalezení pokladu na zahradě a nečekané dědictví po strýci z Ameriky.", correct: false },
+          { text: "Změna barvy semaforu na křižovatce a zpoždění autobusu MHD.", correct: false },
+          { text: "Příliš horké léto nebo naopak velký mrazivý sníh v lednu.", correct: false }
+        ],
+        explanation: "Nečekané negativní události (výpadek příjmů, úraz) řešíme finanční rezervou a komerčním pojištěním."
+      }
+    ];
+
+    // Helper to shuffle an array (Fisher-Yates Algorithm)
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // --- APP STATE ---
+    let currentMode = 'quiz';
+    let activeQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let cardAnswerRevealed = false;
+
+    // --- DOM ELEMENTS ---
+    const viewSelection = document.getElementById('view-selection');
+    const viewQuiz = document.getElementById('view-quiz');
+    const viewFlashcards = document.getElementById('view-flashcards');
+    const viewResults = document.getElementById('view-results');
+    const statsHeader = document.getElementById('stats-header');
+    const headerScore = document.getElementById('header-score');
+    const headerTotal = document.getElementById('header-total');
+
+    // --- START APP ---
+    function startApp(topicId) {
+      const modeRadios = document.getElementsByName('mode');
+      for (const radio of modeRadios) {
+        if (radio.checked) currentMode = radio.value;
+      }
+
+      if (topicId === 'all') {
+        activeQuestions = [...rawQuestions];
+      } else {
+        activeQuestions = rawQuestions.filter(q => q.topic === topicId);
+      }
+
+      activeQuestions = shuffleArray(activeQuestions).map(q => {
+        if (q.type === 'mcq' && q.options) {
+          return { ...q, options: shuffleArray(q.options) };
+        }
+        return q;
+      });
+
+      currentIndex = 0;
+      score = 0;
+
+      viewSelection.classList.add('hidden');
+
+      if (currentMode === 'quiz') {
+        statsHeader.classList.remove('hidden');
+        updateHeaderStats();
+        viewQuiz.classList.remove('hidden');
+        renderQuizQuestion();
+      } else {
+        statsHeader.classList.add('hidden');
+        viewFlashcards.classList.remove('hidden');
+        renderFlashcard();
+      }
+    }
+
+    function exitToMenu() {
+      viewQuiz.classList.add('hidden');
+      viewFlashcards.classList.add('hidden');
+      viewResults.classList.add('hidden');
+      statsHeader.classList.add('hidden');
+      viewSelection.classList.remove('hidden');
+    }
+
+    function updateHeaderStats() {
+      headerScore.innerText = score;
+      headerTotal.innerText = activeQuestions.length;
+    }
+
+    // --- QUIZ LOGIC ---
+    function renderQuizQuestion() {
+      const q = activeQuestions[currentIndex];
+
+      document.getElementById('quiz-progress-text').innerText = `Otázka ${currentIndex + 1} z ${activeQuestions.length}`;
+      document.getElementById('quiz-topic-tag').innerText = q.topicName;
+      document.getElementById('quiz-progress-bar').style.width = `${((currentIndex) / activeQuestions.length) * 100}%`;
+
+      document.getElementById('question-text').innerText = q.question;
+
+      const expBox = document.getElementById('explanation-box');
+      expBox.classList.add('hidden');
+      document.getElementById('btn-next').classList.add('hidden');
+
+      const container = document.getElementById('options-container');
+      container.innerHTML = '';
+
+      if (q.type === 'mcq') {
+        const labels = ['A', 'B', 'C', 'D'];
+        q.options.forEach((opt, idx) => {
+          const btn = document.createElement('button');
+          btn.className = "quiz-opt w-full text-left p-4 rounded-xl bg-slate-700/50 hover:bg-slate-700 border border-slate-600 transition flex items-start gap-3 group";
+          btn.onclick = () => handleAnswer(opt.correct, btn, q);
+
+          btn.innerHTML = `
+            <span class="w-7 h-7 rounded-lg bg-slate-800 text-indigo-400 border border-slate-600 font-bold flex items-center justify-center flex-shrink-0 group-hover:border-indigo-500 group-hover:bg-indigo-600 group-hover:text-white transition">
+              ${labels[idx]}
+            </span>
+            <span class="text-slate-200 text-sm md:text-base pt-0.5">${opt.text}</span>
+          `;
+          container.appendChild(btn);
+        });
+      } else if (q.type === 'tf') {
+        const opts = [
+          { text: "Pravda (Správně)", value: true },
+          { text: "Nepravda (Nesprávně)", value: false }
+        ];
+        opts.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = "quiz-opt w-full text-left p-4 rounded-xl bg-slate-700/50 hover:bg-slate-700 border border-slate-600 transition font-bold text-slate-200 text-base flex items-center gap-3";
+          btn.onclick = () => handleAnswer(opt.value === q.correct, btn, q);
+          btn.innerHTML = `
+            <span class="w-6 h-6 rounded-full border-2 border-slate-500 flex items-center justify-center"></span>
+            ${opt.text}
+          `;
+          container.appendChild(btn);
+        });
+      }
+    }
+
+    function handleAnswer(isCorrect, clickedBtn, q) {
+      const allBtns = document.querySelectorAll('.quiz-opt');
+      allBtns.forEach(btn => btn.disabled = true);
+
+      if (isCorrect) {
+        score++;
+        updateHeaderStats();
+        clickedBtn.classList.remove('bg-slate-700/50', 'border-slate-600');
+        clickedBtn.classList.add('bg-emerald-950/80', 'border-emerald-500', 'text-emerald-200');
+      } else {
+        clickedBtn.classList.remove('bg-slate-700/50', 'border-slate-600');
+        clickedBtn.classList.add('bg-rose-950/80', 'border-rose-500', 'text-rose-200');
+      }
+
+      const expBox = document.getElementById('explanation-box');
+      const expTitle = document.getElementById('explanation-title');
+      const expText = document.getElementById('explanation-text');
+
+      expBox.classList.remove('hidden');
+      if (isCorrect) {
+        expBox.className = "p-4 rounded-xl text-sm leading-relaxed border bg-emerald-950/40 border-emerald-500/50 text-emerald-200 fade-in";
+        expTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i> Správně!`;
+      } else {
+        expBox.className = "p-4 rounded-xl text-sm leading-relaxed border bg-rose-950/40 border-rose-500/50 text-rose-200 fade-in";
+        expTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400 text-lg"></i> Špatně!`;
+      }
+      expText.innerText = q.explanation;
+
+      document.getElementById('btn-next').classList.remove('hidden');
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      if (currentIndex < activeQuestions.length) {
+        renderQuizQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      viewQuiz.classList.add('hidden');
+      statsHeader.classList.add('hidden');
+      viewResults.classList.remove('hidden');
+
+      const pct = Math.round((score / activeQuestions.length) * 100);
+      document.getElementById('results-score').innerText = `${score} / ${activeQuestions.length}`;
+      document.getElementById('results-percentage').innerText = `${pct} % Úspěšnost`;
+
+      const fb = document.getElementById('results-feedback');
+      if (pct >= 85) fb.innerText = "🚀 Vynikající! Zítřejší test zvládneš naprosto bez problémů!";
+      else if (pct >= 60) fb.innerText = "👍 Dobrá práce! Ještě si projdi slabší otázky a bude to super.";
+      else fb.innerText = "💡 Doporučujeme dát si ještě jedno kolo k procvičení celého okruhu!";
+    }
+
+    // --- FLASHCARD LOGIC ---
+    function renderFlashcard() {
+      const q = activeQuestions[currentIndex];
+      cardAnswerRevealed = false;
+
+      document.getElementById('card-progress-text').innerText = `Kartička ${currentIndex + 1} z ${activeQuestions.length}`;
+      document.getElementById('card-topic-tag').innerText = q.topicName;
+      document.getElementById('card-question').innerText = q.question;
+
+      const ansEl = document.getElementById('card-answer');
+      ansEl.classList.add('hidden');
+
+      if (q.type === 'mcq') {
+        const correctOpt = q.options.find(o => o.correct);
+        ansEl.innerText = `Správná odpověď: ${correctOpt.text}\n\nVysvětlení: ${q.explanation}`;
+      } else {
+        ansEl.innerText = `Správná odpověď: ${q.correct ? 'PRAVDA' : 'NEPRAVDA'}\n\nVysvětlení: ${q.explanation}`;
+      }
+
+      document.getElementById('btn-reveal').classList.remove('hidden');
+    }
+
+    function revealCardAnswer() {
+      document.getElementById('card-answer').classList.remove('hidden');
+      document.getElementById('btn-reveal').classList.add('hidden');
+    }
+
+    function nextCard() {
+      if (currentIndex < activeQuestions.length - 1) {
+        currentIndex++;
+        renderFlashcard();
+      } else {
+        currentIndex = 0;
+        renderFlashcard();
+      }
+    }
+
+    function prevCard() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderFlashcard();
+      }
+    }
+  </script>
+</body>
+</html>
